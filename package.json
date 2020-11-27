@@ -1,0 +1,30 @@
+{
+  "name": "mspos",
+  "version": "0.1.0",
+  "main": "app.js",
+  "repository": "git@github.com:black-redoc/mspos.git",
+  "author": "black-redoc",
+  "license": "MIT",
+  "scripts": {
+    "watch": "webpack --config webpack.common.js --watch",
+    "dev": "electron ."
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
+    "electron-reload": "^1.5.0",
+    "sass": "^1.29.0",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.8.0",
+    "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "electron": "^11.0.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
