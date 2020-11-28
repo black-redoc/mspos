@@ -28,4 +28,4 @@ const ItemSchema = new Schema({
 });
 
 exports.ItemSchema = ItemSchema;
-exports.Item = model('Item', ItemSchema);;
+exports.Item = model('Item', ItemSchema);
