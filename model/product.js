@@ -14,7 +14,7 @@ const ProductSchema = new Schema({
         required: true,
         default: false
     },
-    minimunStock: type: SchemaTypes.Number,
+    minimunStock: SchemaTypes.Number,
     stock: SchemaTypes.Number,
     code: {
         type: SchemaTypes.Number,
@@ -23,6 +23,4 @@ const ProductSchema = new Schema({
     photo: SchemaTypes.String
 });
 
-const Product = model('Product', ProductSchema);
-
-module.exports = Product;
+module.exports = model('Product', ProductSchema);;
