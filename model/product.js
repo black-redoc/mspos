@@ -20,7 +20,11 @@ const ProductSchema = new Schema({
         type: SchemaTypes.Number,
         required: true
     },
-    photo: SchemaTypes.String
+    photo: SchemaTypes.String,
+    created_at: {
+        type: SchemaTypes.Date,
+        default: Date.now
+    }
 });
 
 module.exports = model('Product', ProductSchema);;
