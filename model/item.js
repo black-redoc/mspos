@@ -1,7 +1,6 @@
 const { model, Schema, SchemaTypes } = require('mongoose');
-const { NormalModule } = require('webpack');
 
-const ProductSchema = new Schema({
+const ItemSchema = new Schema({
     name: {
         type: SchemaTypes.String,
         required: true
@@ -28,5 +27,5 @@ const ProductSchema = new Schema({
     },
 });
 
-exports.ProductSchema = ProductSchema;
-exports.Product = model('Product', ProductSchema);;
+exports.ItemSchema = ItemSchema;
+exports.Item = model('Item', ItemSchema);;

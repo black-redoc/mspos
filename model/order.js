@@ -1,11 +1,11 @@
 const { model, Schema, SchemaTypes } = require('mongoose');
-const { ProductSchema } = require('./product');
+const { ItemSchema } = require('./item');
 const { CustomerSchema } = require('./customer');
 
 const OrderSchema = new Schema({
     customer: CustomerSchema,
     products: {
-        type: [ProductSchema],
+        type: [ItemSchema],
         required: true,
     },
     total_price: {
