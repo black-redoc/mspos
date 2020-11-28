@@ -19,7 +19,8 @@ const ProductSchema = new Schema({
     code: {
         type: SchemaTypes.Number,
         required: true
-    }
+    },
+    photo: SchemaTypes.String
 });
 
 const Product = model('Product', ProductSchema);
