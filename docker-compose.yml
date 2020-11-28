@@ -1,0 +1,8 @@
+msposdb:
+  container_name: 'msposdb'
+  image: mongo
+  ports:
+    - 27017:27017
+  environment: 
+    MONGO_INITDB_ROOT_USERNAME: root
+    MONGO_INITDB_ROOT_PASSWORD: 1s_main_p4ssword_o1d_b1nary
