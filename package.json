@@ -23,6 +23,11 @@
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.13",
+    "bulma": "^0.9.1",
     "dotenv": "^8.2.0",
     "electron": "^11.0.3",
     "mongoose": "^5.10.17",
