@@ -1,4 +1,5 @@
 const { model, Schema, SchemaTypes } = require('mongoose');
+const { NormalModule } = require('webpack');
 
 const ProductSchema = new Schema({
     name: {
@@ -24,7 +25,8 @@ const ProductSchema = new Schema({
     created_at: {
         type: SchemaTypes.Date,
         default: Date.now
-    }
+    },
 });
 
-module.exports = model('Product', ProductSchema);;
+exports.ProductSchema = ProductSchema;
+exports.Product = model('Product', ProductSchema);;
