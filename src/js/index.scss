@@ -4,8 +4,8 @@ $fa-font-path:  "../../node_modules/@fortawesome/fontawesome-free/webfonts";
 @import "~bulma";
 
 .logo {
-    width: 100px;
-    height: 50px;
+    width: 250px;
+    height: 16px;
     object-fit: cover;
-    object-position: -50% 50%;
+    object-position: 100% 50%;
 }

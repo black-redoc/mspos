@@ -15,7 +15,7 @@ const NavBar = () => {
     return (
         <nav className="navbar is-info" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
-                <a className="navbar-item" href="https://bulma.io">
+                <a className="navbar-item" href="https://bulma.io" href="#">
                     <img src={logo} className="logo" />
                 </a>
 
