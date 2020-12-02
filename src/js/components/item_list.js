@@ -11,7 +11,7 @@ const BuildCard = ({ content }) => {
             <div className="card-content">
 
                 <div className="content">
-                    <p className="title is-6 pointer">Item {content}</p>
+                    <p className="subtitle is-7 pointer">Item {content}</p>
                 </div>
             </div>
         </div>
