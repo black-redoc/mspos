@@ -40,7 +40,7 @@ export default function SignIn() {
                                         <i className="fas fa-key"></i>
                                     </span>
                                 </p>
-                                <p class="help is-danger">Las credenciales no coinciden. Intente otra vez</p>
+                                <p className="help is-danger">Las credenciales no coinciden. Intente otra vez</p>
                             </div>
                         </div>
                     </div>
