@@ -6,6 +6,7 @@ import SearchBar from './components/searchbar';
 import ItemList from './components/item_list';
 import Cart from './components/cart';
 import SignUp from './components/signup';
+import SignIn from './components/signin';
 
 const buildItems = () => {
     /*
@@ -32,6 +33,7 @@ const App = () => {
         <>
             <Router>
                 <NavBar />
+                <Route path="/signin" component={SignIn} />
                 <Route path="/signup" component={SignUp} />
                 <Route path="/" exact>
                     <>
