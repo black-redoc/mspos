@@ -33,7 +33,7 @@ function CartList({ item }) {
 export default function Cart({ items }) {
     const cartRef = createRef();
     const toggleCartRef = createRef();
-    const [cart_arrow, setCartArrow] = useState('fas fa-chevron-right');
+    const [cart_arrow, setCartArrow] = useState('fas fa-chevron-left');
 
     // function for rounde a point floating number
     const rounder = num => Math.round(num * 100) / 100;
@@ -55,12 +55,12 @@ export default function Cart({ items }) {
 
     return (
         <>
-            <div ref={toggleCartRef} className="toggle-cart fixed mb-2 mr-2" onClick={toggleCart}>
+            <div ref={toggleCartRef} className="toggle-cart fixed mb-2 mr-2 toggle-cart-closed" onClick={toggleCart}>
                 <span className="icon is-large is-left">
                     <i className={cart_arrow}></i>
                 </span>
             </div>
-            <aside ref={cartRef} className="column panel is-primary cart-panel fixed v-scroll">
+            <aside ref={cartRef} className="column panel is-primary cart-panel fixed v-scroll cart-closed">
                 <p className="panel-heading">
                     <div className="columns">
                         <div className="column mt-1">
