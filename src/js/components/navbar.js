@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { HashRouter as Router, Link } from 'react-router-dom';
 import logo from '../../public/logo.png';
 
 
@@ -15,9 +16,9 @@ const NavBar = () => {
     return (
         <nav className="navbar is-info" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
-                <a className="navbar-item" href="https://bulma.io" href="#">
+                <Link className="navbar-item" to="/">
                     <img src={logo} className="logo" />
-                </a>
+                </Link>
 
                 <a role="button" onClick={openBurger} className="navbar-burger burger" aria-label="menu" aria-expanded="false">
                     <span aria-hidden="true"></span>
@@ -62,9 +63,9 @@ const NavBar = () => {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
-                            <a className="button is-primary">
+                            <Link to="/signup" className="button is-primary">
                                 <strong>Registrarse</strong>
-                            </a>
+                            </Link>
                             <a className="button is-light">
                                 Iniciar Sesión
                             </a>
