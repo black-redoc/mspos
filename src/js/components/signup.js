@@ -62,6 +62,19 @@ export default function SignUp() {
                         </div>
                     </div>
 
+                    <div className="field is-horizontal">
+                        <div className="field-label is-normal mt-4">
+
+                        </div>
+                        <div className="field-body mt-4">
+                            <div className="field">
+                                <label className="ceckbox">
+                                    <input type="checkbox" className="checkbox" /> ¿Es admin?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="field">
                         <div className="control my-5">
                             <div className="columns">
@@ -69,7 +82,7 @@ export default function SignUp() {
                                     <button className="button is-link">Registrarse</button>
                                     <span className="button is-white">
                                         Ya tienes cuenta? Quizas quieres
-                                    <Link to="/signin" className="button is-ghost ml-1">
+                                    <Link to="/signin" className="button is-link is-inverted ml-1">
                                             iniciar sesión
                                     </Link>
                                     </span>
