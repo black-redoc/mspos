@@ -1,11 +1,13 @@
 import React, { useState, useEffect, createRef } from 'react'
 import { Link } from 'react-router-dom';
+const { dbApi } = electron;
 
 export default function SignUp() {
     const submitBtnRef = createRef();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
     const [usernameError, setUsernameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [hasErrors, setHasErrors] = useState({
@@ -60,8 +62,13 @@ export default function SignUp() {
 
     const handlePasswordConfirmation = e => setPasswordConfirmation(e.target.value);
 
+    const handleIsAdmin = () => setIsAdmin(!isAdmin);
+
     const handleSubmit = e => {
         e.preventDefault();
+        if (!hasErrors.username && !hasErrors.password && !hasErrors.passwordCon) {
+            dbApi.createUser({ username, password, isAdmin })
+        }
     }
 
     return (
@@ -128,7 +135,7 @@ export default function SignUp() {
                         <div className="field-body mt-4 mx-2">
                             <div className="field">
                                 <label className="ceckbox">
-                                    <input type="checkbox" className="checkbox" /> ¿Es admin?
+                                    <input type="checkbox" className="checkbox" checked={isAdmin} onChange={handleIsAdmin} /> ¿Es admin?
                                 </label>
                             </div>
                         </div>

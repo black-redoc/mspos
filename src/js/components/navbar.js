@@ -7,11 +7,13 @@ const NavBar = () => {
     const [burger_style, setBurgerStyle] = useState('navbar-menu')
     const [burger_active, setBurgerActive] = useState(false)
 
-    const openBurger = () => {
+    const toggleBurger = () => {
         const style = burger_active ? 'navbar-menu' : 'navbar-menu is-active';
         setBurgerActive(!burger_active);
         setBurgerStyle(style)
     }
+
+    const handleRedirect = () => toggleBurger();
 
     return (
         <nav className="navbar is-info" role="navigation" aria-label="main navigation">
@@ -20,7 +22,7 @@ const NavBar = () => {
                     <img src={logo} className="logo" />
                 </Link>
 
-                <a role="button" onClick={openBurger} className="navbar-burger burger" aria-label="menu" aria-expanded="false">
+                <a role="button" onClick={toggleBurger} className="navbar-burger burger" aria-label="menu" aria-expanded="false">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -63,10 +65,10 @@ const NavBar = () => {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
-                            <Link to="/signup" className="button is-primary">
+                            <Link to="/signup" className="button is-primary" onClick={handleRedirect}>
                                 <strong>Registrarse</strong>
                             </Link>
-                            <Link to="/signin" className="button is-light">
+                            <Link to="/signin" className="button is-light" onClick={handleRedirect}>
                                 Iniciar Sesión
                             </Link>
                         </div>

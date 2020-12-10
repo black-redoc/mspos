@@ -1,10 +1,28 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link, useHistory } from 'react-router-dom';
+const { dbApi, notificationApi } = electron;
 
 export default function SignIn() {
-    const handleSubmit = e => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
+    const history = useHistory();
+
+    const handleUsername = e => setUsername(e.target.value);
+    const handlePassword = e => setPassword(e.target.value);
+
+    const handleSubmit = async e => {
         e.preventDefault();
+        if (username.split(' ').join('').length !== 0 || password.split(' ').join('').length !== 0) {
+            const res = await dbApi.loginUser({ username, password })
+            if (!res) return setErrorMsg('Las credenciales no coinciden. Intente otra vez');
+            notificationApi.sendNotificacion({ title: 'Info', message: `Bienvenid@ ${username}` });
+            history.push('/');
+        } else {
+            setErrorMsg('Algunos campos estan vacios');
+        }
     }
+
     return (
         <div className="centered columns">
             <div className="column panel is-primary is-narrow is-6">
@@ -19,7 +37,7 @@ export default function SignIn() {
                         <div className="field-body mt-4 mx-4">
                             <div className="field">
                                 <p className="control is-expanded has-icons-left">
-                                    <input className="input" type="text" placeholder="Usuario" />
+                                    <input className="input" type="text" placeholder="Usuario" onChange={handleUsername} />
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-user"></i>
                                     </span>
@@ -35,12 +53,12 @@ export default function SignIn() {
                         <div className="field-body mt-4 mx-4">
                             <div className="field">
                                 <p className="control is-expanded has-icons-left">
-                                    <input className="input" type="password" placeholder="Contraseña" />
+                                    <input className="input" type="password" placeholder="Contraseña" onChange={handlePassword} />
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-key"></i>
                                     </span>
                                 </p>
-                                <p className="help is-danger">Las credenciales no coinciden. Intente otra vez</p>
+                                <p className="help is-danger">{errorMsg}</p>
                             </div>
                         </div>
                     </div>

@@ -1,9 +1,13 @@
-const { app, BrowserWindow, ipcMain, Notification } = require('electron');
+const { app, BrowserWindow, ipcMain, Notification, dialog } = require('electron');
 const path = require('path');
 const isDev = !app.isPackaged;
+require('./model/db');
+const { User } = require('./model/user');
+
+var win;
 
 const createWindow = () => {
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 1024,
         height: 600,
         backgroundColor: 'white',
@@ -11,7 +15,7 @@ const createWindow = () => {
             nodeIntegration: false,
             worldSafeExecuteJavaScript: true,
             contextIsolation: true,
-            preload: path.join(__dirname,'preload.js')
+            preload: path.join(__dirname, 'preload.js')
         }
     });
 
@@ -26,11 +30,46 @@ if (isDev) {
     })
 }
 
-ipcMain.on('notify', (_, { title, message }) => {
+const handleError = msg => {
+    console.error("error", msg)
+    dialog.showErrorBox('Error', `Ha ocurido un error\n ${msg}`)
+}
+
+const handleNotification = ({ title, message }) => {
     new Notification({
         title: title,
         body: message
     }).show();
+}
+
+ipcMain.on('notify', (_, { title, message }) => {
+    handleNotification({ title, message })
+});
+
+ipcMain.on('signup', (e, { username, password, isAdmin }) => {
+    const newUser = new User({
+        user_name: username,
+        password,
+        is_admin: isAdmin
+    });
+
+    newUser.save()
+        .then(doc => {
+            handleNotification({
+                title: "Info",
+                message: `Se ha registrado el usuario ${doc.user_name}`
+            })
+        })
+        .catch(err => handleError(err))
+});
+
+ipcMain.handle('signin', async (e, { username, password }) => {
+    const res = (await User.findOne({ user_name: username }).cursor().next())._doc;
+
+    if (!res) return false;
+
+    const bcrypt = require('bcrypt');
+    return bcrypt.compare(password, res.password);
 });
 
 app.whenReady().then(createWindow);

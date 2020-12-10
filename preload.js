@@ -6,7 +6,12 @@ contextBridge.exposeInMainWorld('electron', {
             ipcRenderer.send('notify', message);
         }
     },
-    filesApi: {
-        
+    dbApi: {
+        createUser(currUser) {
+            ipcRenderer.send('signup', currUser);
+        },
+        async loginUser(user) {
+            return ipcRenderer.invoke('signin', user);
+        }
     }
 });
