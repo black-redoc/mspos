@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
+import { Auth } from './auth';
 const { dbApi, notificationApi } = electron;
 
 export default function SignIn() {
@@ -17,6 +18,7 @@ export default function SignIn() {
             const res = await dbApi.loginUser({ username, password })
             if (!res) return setErrorMsg('Las credenciales no coinciden. Intente otra vez');
             notificationApi.sendNotificacion({ title: 'Info', message: `Bienvenid@ ${username}` });
+            Auth.login();
             history.push('/');
         } else {
             setErrorMsg('Algunos campos estan vacios');

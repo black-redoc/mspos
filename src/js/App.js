@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
 
 import NavBar from './components/navbar';
 import SearchBar from './components/searchbar';
@@ -7,6 +7,7 @@ import ItemList from './components/item_list';
 import Cart from './components/cart';
 import SignUp from './components/signup';
 import SignIn from './components/signin';
+import ProtectedRoute from './components/protected.route';
 
 const buildItems = () => {
     /*
@@ -27,21 +28,25 @@ const buildItems = () => {
     return items;
 }
 
-const App = () => {
+const Index = () => {
     const items = buildItems(); // this will removed - only for mock items
+    return (
+        <>
+            <SearchBar />
+            <ItemList />
+            <Cart items={items} />
+        </>
+    )
+}
+
+const App = () => {
     return (
         <>
             <Router>
                 <NavBar />
                 <Route path="/signin" component={SignIn} />
                 <Route path="/signup" component={SignUp} />
-                <Route path="/" exact>
-                    <>
-                        <SearchBar />
-                        <ItemList />
-                        <Cart items={items} />
-                    </>
-                </Route>
+                <ProtectedRoute path="/" exact component={Index} />
             </Router>
         </>
     );
