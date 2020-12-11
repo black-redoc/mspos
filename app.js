@@ -20,7 +20,7 @@ const createWindow = () => {
     });
 
     win.loadFile('index.html');
-    win.webContents.openDevTools();
+    if (isDev) win.webContents.openDevTools();
     win.maximize();
 }
 
