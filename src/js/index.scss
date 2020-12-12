@@ -96,3 +96,20 @@ $cart_panel_width: 40%;
     align-items: center;
     flex-direction: column;
 }
+
+.rounded {
+    border-radius: 50%;
+}
+
+
+@media only screen and (min-width: 900px) {
+    .translatex-7 {
+        transform: translateX(-70%);
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .no-mobile {
+        display: none;
+    }
+}
