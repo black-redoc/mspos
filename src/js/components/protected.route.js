@@ -17,7 +17,6 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
                         }} />
                     );
                 }
-            }
-            } />
+            }} />
     )
 }
