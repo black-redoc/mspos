@@ -17,6 +17,10 @@ const NavBar = () => {
     }
 
     const handleRedirect = () => toggleBurger();
+    const handleItems = () => {
+        if (burger_active) toggleBurger();
+        history.push('/items');
+    }
     const handleLogout = () => {
         Auth.logout();
         notificationApi.sendNotificacion({ title: 'Info', message: 'Se ha cerrado sesión' });
@@ -48,10 +52,10 @@ const NavBar = () => {
 
                             <div className="navbar-dropdown translatex-7">
                                 <div className="navbar-item">
-                                    <a href="#" onClick={()=>{}} role="button" className="button is-white">Ajustes</a>
+                                    <a href="#" onClick={() => { }} role="button" className="button is-white">Ajustes</a>
                                 </div>
                                 <div className="navbar-item">
-                                    <a href="#" onClick={()=>{}} role="button" className="button is-white">Items</a>
+                                    <a role="button" onClick={handleItems} className="button is-white">Items</a>
                                 </div>
                                 <div className="navbar-item">
                                     <a href="#" onClick={handleLogout} role="button" className="button is-white">Cerrar Sesión</a>

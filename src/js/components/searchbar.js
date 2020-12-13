@@ -10,12 +10,14 @@ export default function SearchBar() {
         console.log(e.target.value);
     }
     return (
-        <form onSubmit={submit} className="column is-half is-offset-3">
-            <div className="field">
-                <div className="control">
-                    <input onChange={change} name="searchField" className="input is-info" type="text" placeholder="código/nombre" />
+        <div className="before-nav">
+            <form onSubmit={submit} className="column is-half is-offset-3">
+                <div className="field">
+                    <div className="control">
+                        <input onChange={change} name="searchField" className="input is-info" type="text" placeholder="código/nombre" />
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     );
 }

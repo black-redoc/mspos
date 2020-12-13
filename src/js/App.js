@@ -7,6 +7,7 @@ import ItemList from './components/item_list';
 import Cart from './components/cart';
 import SignUp from './components/signup';
 import SignIn from './components/signin';
+import Items from './components/items';
 import ProtectedRoute from './components/protected.route';
 
 const buildItems = () => {
@@ -46,6 +47,7 @@ const App = () => {
                 <NavBar />
                 <Route path="/signin" component={SignIn} />
                 <Route path="/signup" component={SignUp} />
+                <Route path="/items" component={Items} />
                 <ProtectedRoute path="/" exact component={Index} />
             </Router>
         </>
