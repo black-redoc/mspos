@@ -121,3 +121,39 @@ $cart_panel_width: 40%;
         display: none;
     }
 }
+
+.modal-form {
+    background: white;
+    border-radius: 2%;
+}
+
+// Disable Spinner on <input type="number"/>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.align-right {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-direction: row-reverse;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.center-horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    padding-bottom: 1.5rem;
+}
