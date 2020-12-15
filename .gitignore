@@ -107,3 +107,10 @@ packages/react-devtools-inline/dist
 packages/react-devtools-shell/dist
 packages/react-devtools-scheduling-profiler/dist
 ########## react ##########
+
+
+########## project ########
+./public
+./public/*
+
+########## project ########
