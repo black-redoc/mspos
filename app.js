@@ -3,6 +3,7 @@ const path = require('path');
 const isDev = !app.isPackaged;
 require('./model/db');
 const { User } = require('./model/user');
+const { Item } = require('./model/item');
 
 var win;
 
@@ -71,6 +72,28 @@ ipcMain.handle('signin', async (e, { username, password }) => {
 
     const bcrypt = require('bcrypt');
     return bcrypt.compare(password, res.password);
+});
+
+ipcMain.on('save-item', async (e, { name, price, stockApplies, stock, code, photo_url, photo_name }) => {
+    const fs = require('fs');
+
+    const dest_file = path.join(__dirname, 'public', photo_name);
+
+    fs.copyFileSync(photo_url, dest_file);
+
+    const newItem = new Item({
+        name, price, stockApplies, stock, code, photo: dest_file
+    });
+
+    try {
+        const res = await newItem.save();
+        if (res) handleNotification({
+            title: "info",
+            message: `Se ha agregado el Item ${res.name}`,
+        })
+    } catch (err) {
+        if (err) handleError(err);
+    }
 });
 
 app.whenReady().then(createWindow);

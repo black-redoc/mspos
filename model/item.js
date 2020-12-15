@@ -14,7 +14,6 @@ const ItemSchema = new Schema({
         required: true,
         default: false
     },
-    minimunStock: SchemaTypes.Number,
     stock: SchemaTypes.Number,
     code: {
         type: SchemaTypes.Number,
