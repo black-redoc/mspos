@@ -110,7 +110,7 @@ packages/react-devtools-scheduling-profiler/dist
 
 
 ########## project ########
-./public
-./public/*
+public
+public/*
 
 ########## project ########
