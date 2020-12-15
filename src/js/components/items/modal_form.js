@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+const { dbApi } = electron;
 
 export const ModalForm = ({ modal, itemId }) => {
     const [code, setCode] = useState('');
@@ -12,7 +13,19 @@ export const ModalForm = ({ modal, itemId }) => {
     const [modalTitle, setModalTitle] = useState('');
     const stockRef = useRef();
 
-    const handleSubmit = e => e.preventDefault();
+    const handleSubmit = async e => {
+        e.preventDefault();
+        await dbApi.saveItem({
+            name: itemName, 
+            price, 
+            stockApplies: hasStock, 
+            stock,
+            code,
+            photo_url: image.path, 
+            photo_name: image.name
+        })
+        handleClose();
+    }
 
     const handleClose = () => {
         modal.setActive(!modal.isActive);

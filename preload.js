@@ -14,7 +14,7 @@ contextBridge.exposeInMainWorld('electron', {
             return ipcRenderer.invoke('signin', user);
         },
         async saveItem(item) {
-            await ipcRenderer.invsendoke('save-item', item)
+            await ipcRenderer.send('save-item', item)
         }
     }
 });

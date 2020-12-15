@@ -14,10 +14,12 @@ const ItemSchema = new Schema({
         required: true,
         default: false
     },
+    minimunStock: SchemaTypes.Number,
     stock: SchemaTypes.Number,
     code: {
         type: SchemaTypes.Number,
-        required: true
+        required: true,
+        unique: true
     },
     photo: SchemaTypes.String,
     created_at: {
