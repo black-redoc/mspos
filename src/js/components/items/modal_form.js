@@ -15,16 +15,21 @@ export const ModalForm = ({ modal, itemId }) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        await dbApi.saveItem({
-            name: itemName, 
-            price, 
-            stockApplies: hasStock, 
-            stock,
-            code,
-            photo_url: image.path, 
-            photo_name: image.name
-        })
-        handleClose();
+        try {
+            await dbApi.saveItem({
+                name: itemName,
+                price,
+                stockApplies: hasStock,
+                stock,
+                code,
+                photo_url: image.path,
+                photo_name: image.name
+            })
+        } catch(err) {
+            if (err) console.error(err);
+        } finally {
+            handleClose();
+        }
     }
 
     const handleClose = () => {

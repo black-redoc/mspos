@@ -16,7 +16,7 @@ const createWindow = () => {
             nodeIntegration: false,
             worldSafeExecuteJavaScript: true,
             contextIsolation: true,
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'),
         }
     });
 
@@ -66,26 +66,38 @@ ipcMain.on('signup', (e, { username, password, isAdmin }) => {
 });
 
 ipcMain.handle('signin', async (e, { username, password }) => {
-    const res = (await User.findOne({ user_name: username }).cursor().next())._doc;
+    try {
+        const res = (await User.findOne({ user_name: username }).cursor().next())._doc;
 
-    if (!res) return false;
+        if (!res) return false;
 
-    const bcrypt = require('bcrypt');
-    return bcrypt.compare(password, res.password);
+        const bcrypt = require('bcrypt');
+        return bcrypt.compare(password, res.password);
+    } catch (err) {
+        if (err) handleError(err);
+    }
 });
 
-ipcMain.on('save-item', async (e, { name, price, stockApplies, stock, code, photo_url, photo_name }) => {
-    const fs = require('fs');
-
-    const dest_file = path.join(__dirname, 'public', photo_name);
-
-    fs.copyFileSync(photo_url, dest_file);
-
-    const newItem = new Item({
-        name, price, stockApplies, stock, code, photo: dest_file
-    });
-
+ipcMain.handle('get-items', async e => {
     try {
+        return await Item.find({})
+    } catch (err) {
+        if(err) handleError(err);
+    }
+})
+
+ipcMain.on('save-item', async (e, { name, price, stockApplies, stock, code, photo_url, photo_name }) => {
+    try {
+        const fs = require('fs');
+
+        const dest_file = path.join(__dirname, 'public', photo_name);
+
+        fs.copyFileSync(photo_url, dest_file);
+
+        const newItem = new Item({
+            name, price, stockApplies, stock, code, photo: dest_file
+        });
+
         const res = await newItem.save();
         if (res) handleNotification({
             title: "info",

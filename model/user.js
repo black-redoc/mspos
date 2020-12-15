@@ -15,13 +15,13 @@ const UserSchema = new Schema({
 })
 
 UserSchema.pre('save', async function(next) {
-    let user = this; // access to current user before storing
+    try {
+        let user = this; // access to current user before storing
 
-    // if it's a user password update then doesn't encrypt password
-    if (!user.isModified('password')) return next(); 
+        // if it's a user password update then doesn't encrypt password
+        if (!user.isModified('password')) return next(); 
 
-    if (user.password) {
-        try {
+        if (user.password) {
             // if password is defined then generate the Salt algorithm
             const salt = await bcrypt.genSalt(10);
         
@@ -30,11 +30,11 @@ UserSchema.pre('save', async function(next) {
             user.password = hash; // store the has in password key object
             next();
         
-        } catch (err) {
-            if (err) return next(err);
         }
-        
+    } catch (err) {
+        if (err) return next(err);
     }
+        
 });
 
 exports.UserSchema = UserSchema;

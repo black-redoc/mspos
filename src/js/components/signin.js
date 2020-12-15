@@ -15,11 +15,15 @@ export default function SignIn() {
     const handleSubmit = async e => {
         e.preventDefault();
         if (username.split(' ').join('').length > 0 && password.split(' ').join('').length > 0) {
-            const res = await dbApi.loginUser({ username, password })
-            if (!res) return setErrorMsg('Las credenciales no coinciden. Intente otra vez');
-            notificationApi.sendNotificacion({ title: 'Info', message: `Bienvenid@ ${username}` });
-            Auth.login();
-            history.push('/');
+            try {
+                const res = await dbApi.loginUser({ username, password })
+                if (!res) return setErrorMsg('Las credenciales no coinciden. Intente otra vez');
+                notificationApi.sendNotificacion({ title: 'Info', message: `Bienvenid@ ${username}` });
+                Auth.login();
+                history.push('/');
+            } catch (err) {
+                if (err) console.error(err);
+            }
         } else {
             setErrorMsg('Algunos campos estan vacios');
         }

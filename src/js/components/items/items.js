@@ -1,11 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AlertDelete } from './alert_delete';
 import { ModalForm } from './modal_form';
+const { dbApi } = electron;
 
 export default function Items() {
     const [modalFormActive, setModalFormActive] = useState(false);
     const [alertDeleteActive, setAlertDeleteActive] = useState(false);
     const [itemId, setItemId] = useState(0);
+    const [items, setItems] = useState([]);
+
+    useEffect(async () => {
+        try {
+            const res = await dbApi.getItems();
+            setItems(res.flatMap(e => e._doc))
+        } catch (err) {
+            console.error(err)
+        }
+    }, [])
 
     const handleAddItem = () => {
         setModalFormActive(!modalFormActive);
@@ -58,7 +69,7 @@ export default function Items() {
                         </tr>
                     </thead>
                     <tbody>
-                        {MockItems().map((item, idx) => <TableRow key={idx} editAction={handleEditItem} deleteAction={handleDeleteItem}>{item}</TableRow>)}
+                        {items.map((item, idx) => <TableRow key={idx} editAction={handleEditItem} deleteAction={handleDeleteItem}>{item}</TableRow>)}
                     </tbody>
                 </table>
             </div>

@@ -10,11 +10,14 @@ contextBridge.exposeInMainWorld('electron', {
         createUser(currUser) {
             ipcRenderer.send('signup', currUser);
         },
-        async loginUser(user) {
+        loginUser(user) {
             return ipcRenderer.invoke('signin', user);
         },
-        async saveItem(item) {
-            await ipcRenderer.send('save-item', item)
+        saveItem(item) {
+            ipcRenderer.send('save-item', item)
+        },
+        async getItems() {
+            return ipcRenderer.invoke('get-items');
         }
     }
 });
