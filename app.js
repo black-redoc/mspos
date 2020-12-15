@@ -19,6 +19,7 @@ const createWindow = () => {
         }
     });
 
+    win.removeMenu();
     win.loadFile('index.html');
     if (isDev) win.webContents.openDevTools();
     win.maximize();
