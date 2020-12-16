@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { AlertDelete } from './alert_delete';
 import { ModalForm } from './modal_form';
+import { ItemsContext } from './items.context';
 const { dbApi } = electron;
 
 export default function Items() {
     const [modalFormActive, setModalFormActive] = useState(false);
     const [alertDeleteActive, setAlertDeleteActive] = useState(false);
     const [itemId, setItemId] = useState(0);
-    const [items, setItems] = useState([]);
+    const { items, itemsDispatcher } = useContext(ItemsContext);
 
     useEffect(async () => {
-        try {
+        /*try {
             const res = await dbApi.getItems();
             setItems(res.flatMap(e => e._doc))
         } catch (err) {
             console.error(err)
-        }
+        }*/
     }, [])
 
     const handleAddItem = () => {

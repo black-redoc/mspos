@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 
 import NavBar from './components/navbar';
@@ -9,6 +9,10 @@ import SignUp from './components/signup';
 import SignIn from './components/signin';
 import Items from './components/items';
 import ProtectedRoute from './components/protected.route';
+import { ItemsContext } from './components/items/';
+import { itemsReducer } from './components/items/';
+import { ITEM_ADD_ALL } from './components/items/';
+const { dbApi } = electron;
 
 const buildItems = () => {
     /*
@@ -41,15 +45,28 @@ const Index = () => {
 }
 
 const App = () => {
+    const [itemsState, itemsDispatcher] = useReducer(itemsReducer, []);
+
+    useEffect(async () => {
+        try {
+            const items = (await dbApi.getItems()).flatMap(e => e._doc);
+            itemsDispatcher({ payload: [...items], action: ITEM_ADD_ALL });
+        } catch (err) {
+            if (err) console.error(err);
+        }
+    }, [])
+
     return (
         <>
-            <Router>
-                <NavBar />
-                <Route path="/signin" component={SignIn} />
-                <Route path="/signup" component={SignUp} />
-                <Route path="/items" component={Items} />
-                <ProtectedRoute path="/" exact component={Index} />
-            </Router>
+            <ItemsContext.Provider value={{ itemsDispatcher, items: itemsState }}>
+                <Router>
+                    <NavBar />
+                    <Route path="/signin" component={SignIn} />
+                    <Route path="/signup" component={SignUp} />
+                    <Route path="/items" component={Items} />
+                    <ProtectedRoute path="/" exact component={Index} />
+                </Router>
+            </ItemsContext.Provider>
         </>
     );
 }
