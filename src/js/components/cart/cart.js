@@ -1,4 +1,5 @@
 import React, { useState, createRef, useContext } from 'react';
+import { useEffect } from 'react/cjs/react.development';
 import { ItemsContext } from '../items';
 
 function CartList({ item }) {
@@ -35,12 +36,19 @@ export default function Cart({ items }) {
     const cartRef = createRef();
     const toggleCartRef = createRef();
     const [cart_arrow, setCartArrow] = useState('fas fa-chevron-left');
+    const [cartQuantity, setCartQuantity] = useState(0);
     const { cartItems } = useContext(ItemsContext);
 
     // function for rounde a point floating number
     const rounder = num => Math.round(num * 100) / 100;
     // function for sum all the prices of an items array
     const pricesReducer = elements => elements.reduce((prev, curr) => curr.price + prev, 0);
+
+    useEffect(() => {
+        if (cartItems.length > 0) {
+            setCartQuantity(cartItems.reduce((prev, curr) => curr.quantity + prev, 0));
+        }
+    }, [cartItems])
 
     /*
      * function triggered when the toggleButton is clicked and enable 
@@ -58,8 +66,11 @@ export default function Cart({ items }) {
     return (
         <>
             <div ref={toggleCartRef} className="toggle-cart fixed mb-2 mr-2 toggle-cart-closed" onClick={toggleCart}>
-                <span className="icon is-large is-left">
+                <span className="icon is-large is-left is-relative">
                     <i className={cart_arrow}></i>
+                    <p className="cart-quantity">
+                        {cartQuantity}
+                    </p>
                 </span>
             </div>
             <aside ref={cartRef} className="column panel is-primary cart-panel fixed v-scroll cart-closed">
