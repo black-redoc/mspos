@@ -1,4 +1,5 @@
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useContext } from 'react';
+import { ItemsContext } from '../items';
 
 function CartList({ item }) {
     /*
@@ -34,6 +35,7 @@ export default function Cart({ items }) {
     const cartRef = createRef();
     const toggleCartRef = createRef();
     const [cart_arrow, setCartArrow] = useState('fas fa-chevron-left');
+    const { cartItems } = useContext(ItemsContext);
 
     // function for rounde a point floating number
     const rounder = num => Math.round(num * 100) / 100;
@@ -81,7 +83,7 @@ export default function Cart({ items }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {items.map((e, idx) => <CartList key={idx} item={e} />)}
+                        {cartItems.map((e, idx) => <CartList key={idx} item={e} />)}
                     </tbody>
                 </table>
                 <table className="table is-fullwidth">
@@ -89,7 +91,7 @@ export default function Cart({ items }) {
                         <tr>
                             <th>Total</th>
                             <th></th><th></th><th></th><th></th>
-                            <th>{rounder(pricesReducer(items))}</th>
+                            <th>{rounder(pricesReducer(cartItems))}</th>
                         </tr>
                     </thead>
                 </table>

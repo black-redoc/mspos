@@ -4,7 +4,7 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import NavBar from './components/navbar';
 import SearchBar from './components/searchbar';
 import ItemList from './components/item_list';
-import Cart from './components/cart';
+import Cart, { cartReducer } from './components/cart';
 import SignUp from './components/signup';
 import SignIn from './components/signin';
 import Items from './components/items';
@@ -14,38 +14,20 @@ import { itemsReducer } from './components/items/';
 import { ITEM_ADD_ALL } from './components/items/';
 const { dbApi } = electron;
 
-const buildItems = () => {
-    /*
-     * temporal function for mock items
-     * this will removed
-     */
-    const items = [];
-    function rounder(num) {
-        return Math.round(num * 100) / 100
-    }
-    for (let i = 1; i <= 9; i++) {
-        items.push({
-            name: `Item ${i}`,
-            quantity: Math.round((Math.random() * 20) + 1),
-            price: rounder((Math.random() * 50000) + 1)
-        });
-    }
-    return items;
-}
 
 const Index = () => {
-    const items = buildItems(); // this will removed - only for mock items
     return (
         <>
             <SearchBar />
             <ItemList />
-            <Cart items={items} />
+            <Cart />
         </>
     )
 }
 
 const App = () => {
     const [itemsState, itemsDispatcher] = useReducer(itemsReducer, []);
+    const [cartItems, cartDispatcher] = useReducer(cartReducer, []);
 
     useEffect(async () => {
         try {
@@ -58,7 +40,7 @@ const App = () => {
 
     return (
         <>
-            <ItemsContext.Provider value={{ itemsDispatcher, items: itemsState }}>
+            <ItemsContext.Provider value={{ itemsDispatcher, items: itemsState, cartItems, cartDispatcher }}>
                 <Router>
                     <NavBar />
                     <Route path="/signin" component={SignIn} />

@@ -1,9 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { CART_ADD } from './cart';
 import { ItemsContext } from './items';
 
 const BuildCard = ({ name, price, code, photo }) => {
+    const { cartItems, cartDispatcher } = useContext(ItemsContext);
+    const handleClick = () => {
+        cartDispatcher({ payload: {name, price}, action: CART_ADD});
+    }
     return (
-        <div className="card column is-3 mb-1">
+        <div className="card column is-3 mb-1" onClick={handleClick}>
             <div className="card-image">
                 <figure className="image is-4by3 pointer pointer-box">
                     <img src={photo} alt="Placeholder image" />
